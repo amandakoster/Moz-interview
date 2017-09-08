@@ -1,13 +1,15 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDom from 'react-dom';
+import superagent from 'superagent';
 
-class App extends Component {
-  render() {
-    return (
+class App extends React.Component{
+
+  render(){
+    return(
       <div>
-        <h1>Hello World</h1>
-
+        <h1> hello world </h1>
       </div>
+
     );
   }
 }
