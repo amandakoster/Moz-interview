@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
-const ExtractPlugin = require('extract-text-webpack-plugin')
-const HTMLPlugin = require('html-webpack-plugin')
+const ExtractPlugin = require('extract-text-webpack-plugin');
+const HTMLPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'eval',
@@ -12,7 +12,7 @@ module.exports = {
     publicPath: '/',
   },
   plugins: [
-    new HTMLPlugin({template: `${__dirname}/src/index.html` }),
+    new HTMLPlugin(),
     new ExtractPlugin('bundle-[hash].css'),
   ],
   module: {
@@ -28,4 +28,4 @@ module.exports = {
       },
     ],
   },
-}
+};
