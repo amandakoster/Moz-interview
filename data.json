@@ -11,3 +11,16 @@
     "total_avg_hrly_rate": "30.51",
     "total_no_empl": "30"
 },
+{
+    "average_of_female_months_longevity_in_current_classification": "100.96",
+    "average_of_male_months_longevity_in_current_classification": "90.71",
+    "female_avg_hrly_rate": "10.58",
+    "jobtitle": "Cook",
+    "male_avg_hrly_rate": "12.28",
+    "no_female_empl": "40",
+    "no_male_empl": "8",
+    "ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage": "4.01",
+    "total_average_of_months_longevity_in_current_classification": "83.20",
+    "total_avg_hrly_rate": "20.51",
+    "total_no_empl": "48"
+},
