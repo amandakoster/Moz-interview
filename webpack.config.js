@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').config();
 const HTMLPlugin = require('html-webpack-plugin');
 const ExtractPlugin = require('extract-text-webpack-plugin');
 
