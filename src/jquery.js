@@ -1,4 +1,4 @@
-
+// 
 // var dataSetId = 'xpsg-6hup';
 // var dataQueryString = [ // following SoQL format documented at http://dev.socrata.com/docs/queries/
 //   '$select=drg_definition,avg(average_covered_charges),avg(average_medicare_payments),avg(average_total_payments)',
