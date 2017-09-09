@@ -2,7 +2,9 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import superagent from 'superagent';
-import Table from './components/table';
+import Data from './components/data';
+
+
 const API_URL = 'https://data.seattle.gov/api/views/cf52-s8er/rows.json?api_key=SCC1c0Cove7ypmBeuf3dTX2WZOk6qEfCAki6MoNi';
 
 class App extends React.Component {
@@ -10,11 +12,11 @@ class App extends React.Component {
     super(props);
     this.state = {};
   }
-  
+
   render() {
     return(
       <div>
-        <Table />
+        <Data />
       </div>
     );
   }
