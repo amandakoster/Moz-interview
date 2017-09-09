@@ -1,15 +1,30 @@
-// $.get( 'https://data.seattle.gov/api/views/cf52-s8er/rows.json', function( data ) {
-//   console.log(data[1]);
-// });
+
+// var dataSetId = 'xpsg-6hup';
+// var dataQueryString = [ // following SoQL format documented at http://dev.socrata.com/docs/queries/
+//   '$select=drg_definition,avg(average_covered_charges),avg(average_medicare_payments),avg(average_total_payments)',
+//   '$group=drg_definition',
+//   '$order=avg_average_medicare_payments+desc',
+//   '$limit=5',
+// ].join('&');
+// var chartTitle = 'Top 5 DRGs by Avg Medicare Payment';
 //
-// $.ajax({
-//   url: 'https://data.seattle.gov/resource/5m8y-83zb.json',
-//   type: 'GET',
-//   data: {
-//     '$limit' : 5000,
-//     '$$app_token' : 'YOURAPPTOKENHERE',
-//   },
-// }).done(function(data) {
-//   alert('Retrieved ' + data.length + ' records from the dataset!');
-//   console.log(data);
+//
+// $(document).ready(function () {
+//   $.get('https://'+dataDomain+'/resource/'+dataSetId+'.csv?'+dataQueryString, function (csv) {
+//     console.log('We got the following data back in CSV format', csv);
+//     $('#chart-container').highcharts({
+//       chart: {
+//         type: 'column',
+//       },
+//       data: {
+//         csv: csv,
+//       },
+//       title: {
+//         text: chartTitle,
+//       },
+//       subtitle: {
+//         text: 'Source: https://'+dataDomain+'/d/'+dataSetId,
+//       },
+//     });
+//   });
 // });
