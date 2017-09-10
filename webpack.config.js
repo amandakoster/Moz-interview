@@ -5,7 +5,6 @@ const HTMLPlugin = require('html-webpack-plugin');
 const ExtractPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  // source map for better error line numbers
   devtool: 'eval',
   entry: `${__dirname}/src/main.js`,
   output: {

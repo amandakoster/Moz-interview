@@ -3,7 +3,6 @@ import ReactDom from 'react-dom';
 import superagent from 'superagent';
 import '../_main.scss';
 
-
 class Data extends React.Component {
   constructor(props) {
     super(props);
@@ -15,6 +14,9 @@ class Data extends React.Component {
     };
 
     this.fetchData = this.fetchData.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+
+
   }
 
   componentWillMount(){
@@ -22,7 +24,8 @@ class Data extends React.Component {
   }
   fetchData(){
     superagent
-      .get(`https://data.seattle.gov/resource/5m8y-83zb.json?$order=${this.state.sort}`
+      .get(
+        `https://data.seattle.gov/resource/5m8y-83zb.json?$order=jobtitle%20DESC`
       )
       .then(res => {
         let resArr = res.body;
@@ -31,7 +34,9 @@ class Data extends React.Component {
         console.log(resMap, 'resMap');
         resArr.map(data => {
           resMap.push([
-            data.jobtitle,
+            data.jobtitle ? data.jobtitle : 'no data',
+            data.female_avg_hrly_rate  ? data.female_avg_hrly_rate  : 'no data',
+            data.male_avg_hrly_rate ?  data.male_avg_hrly_rate  : 'no data',
           ]);
         });
 
@@ -52,12 +57,16 @@ class Data extends React.Component {
         <table>
           <tbody>
             <tr>
-              <th className="jobtitle" onClick={this.handleChange}> Job Title </th>
+              <th className="jobtitle" onClick={this.handleClick}> Job Title </th>
+              <th className="women" onClick={this.handleClick}> Womens Wages </th>
+              <th className="men" onClick={this.handleClick}> Male Wages </th>
             </tr>
             {this.state.data.map((data, i) => {
               return (
                 <tr key={i}>
                   <td>{data[0]}</td>
+                  <td>{data[1]}</td>
+                  <td>{data[2]}</td>
                 </tr>
               );
             })}
