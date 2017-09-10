@@ -9,14 +9,14 @@ class Data extends React.Component {
     this.state = {
       data: [],
       sort: '',
-      order: '',
+      order: 0,
       offset: '',
       formattedData:[],
     };
 
     this.rawData;
     this.fetchData = this.fetchData.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.sortJobtitle = this.sortJobtitle.bind(this);
   }
 
   componentWillMount(){
@@ -29,7 +29,7 @@ class Data extends React.Component {
   fetchData(){
     return superagent
       .get(
-        `https://data.seattle.gov/resource/5m8y-83zb.json?$order=jobtitle%20DESC`
+        `https://data.seattle.gov/resource/5m8y-83zb.json?$order=jobtitle%20ASC`
       )
       .then(res => {
         this.rawData = res.body;
@@ -46,10 +46,28 @@ class Data extends React.Component {
     });
   }
 
+  letterSort(arr, order) {
+    console.log(arr, 'arr');
+    if(order === 'ascdending'){
+
+    }
+    return arr.sort(function(a, b) {
+      var nameA = a.jobtitle.toUpperCase();
+      var nameB = b.jobtitle.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+  }
   // this.setState({searchText: e.target.value});
 
-  handleClick(e){
-
+  sortJobtitle(){
+    console.log(this, 'THIS');
+    this.setState({formattedData: this.letterSort(this.state.formattedData)});
   }
 
   render(){
@@ -59,9 +77,8 @@ class Data extends React.Component {
         <table>
           <tbody>
             <tr>
-              <th className="jobtitle" onClick={this.handleClick}> Job Title </th>
-              <th className="women" onClick={this.handleClick}> Womens Wages </th>
-              <th className="men" onClick={this.handleClick}> Male Wages </th>
+              <th className="jobtitle" onClick={this.sortJobtitle}> Job Title </th>
+
             </tr>
             {this.state.formattedData.map((data, i) => {
               return (
