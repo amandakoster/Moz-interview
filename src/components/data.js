@@ -11,37 +11,39 @@ class Data extends React.Component {
       sort: '',
       order: '',
       offset: '',
+      formattedData:[],
     };
 
+    this.rawData;
     this.fetchData = this.fetchData.bind(this);
     this.handleClick = this.handleClick.bind(this);
-
-
   }
 
   componentWillMount(){
-    this.fetchData();
+    this.fetchData()
+      .then(() => {
+        this.setState({formattedData : this.formatData(this.rawData)});
+      });
   }
+
   fetchData(){
-    superagent
+    return superagent
       .get(
         `https://data.seattle.gov/resource/5m8y-83zb.json?$order=jobtitle%20DESC`
       )
       .then(res => {
-        let resArr = res.body;
-        console.log(resArr[0], 'resArr');
-        let resMap = [];
-        console.log(resMap, 'resMap');
-        resArr.map(data => {
-          resMap.push([
-            data.jobtitle ? data.jobtitle : 'no data',
-            data.female_avg_hrly_rate  ? data.female_avg_hrly_rate  : 'no data',
-            data.male_avg_hrly_rate ?  data.male_avg_hrly_rate  : 'no data',
-          ]);
-        });
-
-        this.setState({data:resMap});
+        this.rawData = res.body;
       });
+  }
+
+  formatData(arr){
+    return arr.map(data => {
+      return {
+        jobtitle:data.jobtitle ? data.jobtitle : 'no data',
+        female_avg_hrly_rate: data.female_avg_hrly_rate  ? data.female_avg_hrly_rate  : 'no data',
+        male_avg_hrly_rate: data.male_avg_hrly_rate ?  data.male_avg_hrly_rate  : 'no data',
+      };
+    });
   }
 
   // this.setState({searchText: e.target.value});
@@ -53,7 +55,7 @@ class Data extends React.Component {
   render(){
     return(
       <div>
-        <h1>Moz interview: Seattle wages by gender</h1>
+        <h1>Seattle wages by gender</h1>
         <table>
           <tbody>
             <tr>
@@ -61,12 +63,12 @@ class Data extends React.Component {
               <th className="women" onClick={this.handleClick}> Womens Wages </th>
               <th className="men" onClick={this.handleClick}> Male Wages </th>
             </tr>
-            {this.state.data.map((data, i) => {
+            {this.state.formattedData.map((data, i) => {
               return (
                 <tr key={i}>
-                  <td>{data[0]}</td>
-                  <td>{data[1]}</td>
-                  <td>{data[2]}</td>
+                  <td>{data.jobtitle}</td>
+                  <td>{data.female_avg_hrly_rate}</td>
+                  <td>{data.male_avg_hrly_rate}</td>
                 </tr>
               );
             })}
