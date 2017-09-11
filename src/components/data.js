@@ -8,8 +8,8 @@ class Data extends React.Component {
     super(props);
     this.state = {
       data: [],
-      sort: '',
       order: '',
+      orderBy: '',
       offset: '',
       formattedData:[],
     };
@@ -52,6 +52,9 @@ class Data extends React.Component {
     return arr.sort(function(a, b) {
       var A = a.jobtitle;
       var B = b.jobtitle;
+      //var numA = Number(a.jobtitle);
+      //var isNumber = isNaN(numA);
+
       if (order == 'ASC') {
         if (A < B) return -1;
         if (A > B) return 1;
@@ -64,10 +67,12 @@ class Data extends React.Component {
   }
   // this.setState({searchText: e.target.value});
 
-  sortJobtitle(){
+  sortJobtitle(e){
+    console.log(e, 'E');
     if (this.state.order != 'ASC') this.setState({order: 'ASC'});
     else this.setState({order: 'DESC'});
-    console.log(this.state.order);
+    this.setState({orderBy: e.target.className});
+    console.log(e.target.className);
     this.setState({formattedData: this.letterSort(this.state.formattedData)});
   }
 
