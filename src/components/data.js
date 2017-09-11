@@ -9,7 +9,7 @@ class Data extends React.Component {
     this.state = {
       data: [],
       sort: '',
-      order: 0,
+      order: '',
       offset: '',
       formattedData:[],
     };
@@ -34,6 +34,7 @@ class Data extends React.Component {
       .then(res => {
         this.rawData = res.body;
       });
+
   }
 
   formatData(arr){
@@ -46,19 +47,17 @@ class Data extends React.Component {
     });
   }
 
-  letterSort(arr, order) {
-    console.log(arr, 'arr');
-    if(order === 'ascdending'){
-
-    }
+  letterSort(arr) {
+    var order = this.state.order;
     return arr.sort(function(a, b) {
-      var nameA = a.jobtitle.toUpperCase();
-      var nameB = b.jobtitle.toUpperCase();
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
+      var A = a.jobtitle;
+      var B = b.jobtitle;
+      if (order == 'ASC') {
+        if (A < B) return -1;
+        if (A > B) return 1;
+      } else {
+        if (A < B) return 1;
+        if (A > B) return -1;
       }
       return 0;
     });
@@ -66,7 +65,9 @@ class Data extends React.Component {
   // this.setState({searchText: e.target.value});
 
   sortJobtitle(){
-    console.log(this, 'THIS');
+    if (this.state.order != 'ASC') this.setState({order: 'ASC'});
+    else this.setState({order: 'DESC'});
+    console.log(this.state.order);
     this.setState({formattedData: this.letterSort(this.state.formattedData)});
   }
 
@@ -78,6 +79,8 @@ class Data extends React.Component {
           <tbody>
             <tr>
               <th className="jobtitle" onClick={this.sortJobtitle}> Job Title </th>
+              <th className="woman" onClick={this.sortJobtitle}> Womens Wages </th>
+              <th className="man" onClick={this.sortJobtitle}> Mens Wages </th>
 
             </tr>
             {this.state.formattedData.map((data, i) => {
