@@ -32,6 +32,7 @@ class Data extends React.Component {
         `https://data.seattle.gov/resource/5m8y-83zb.json?$order=jobtitle%20ASC`
       )
       .then(res => {
+        // research this
         this.rawData = res.body;
       });
   }
