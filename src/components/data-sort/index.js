@@ -17,7 +17,6 @@ class Data extends React.Component {
     this.rawData;
     this.sortJobtitle = this.sortJobtitle.bind(this);
     this.sortWages = this.sortWages.bind(this);
-    // this.sortDifference = this.sortDifference.bind(this);
   }
 
   componentWillMount(){
@@ -82,24 +81,6 @@ class Data extends React.Component {
     });
   }
 
-  // difference(arr, row) {
-  //   var gapDifference = (this.data.female_avg_hrly_rate - this.data.male_avg_hrly_rate);
-  //   var order = this.state.order;
-  //   console.log('difference', this.state.order);
-  //   return arr.sort(function (a, b) {
-  //     var numA = (isNaN(Number(a[row]))) ? 0 : Number(a[row]);
-  //     var numB = (isNaN(Number(b[row]))) ? 0 : Number(b[row]);
-  //     if (order == 'ASC') {
-  //       if(numA < numB) return -1;
-  //       if(numA > numB) return 1;
-  //     } else {
-  //       if(numA < numB) return 1;
-  //       if(numA > numB)return -1;
-  //     }
-  //     return 0;
-  //   });
-  // }
-
   sortJobtitle(e){
     if (this.state.order != 'ASC') this.setState({order: 'ASC'});
     else this.setState({order: 'DESC'});
@@ -114,12 +95,6 @@ class Data extends React.Component {
     this.setState({formattedData: this.wage(this.state.formattedData, e.target.className)});
   }
 
-  // sortDifference(e){
-  //   if (this.state.order != 'ASC') this.setState({order: 'ASC'});
-  //   else this.setState({order: 'DESC'});
-  //   this.setState({formattedData: this.difference(this.state.formattedData, e.target.className)});
-  // }
-
   wageDifference(gap){
     let difference =
     this.state.female_avg_hrly_rate - this.male_avg_hrly_rate || this.state.male_avg_hrly_rate - this.state.female_avg_hrly_rate;
@@ -132,7 +107,7 @@ class Data extends React.Component {
   render(){
     return(
       <div>
-        <h1>Seattle wages by gender</h1>
+        <h1>Seattle Wages By Gender</h1>
         <table>
           <tbody>
             <tr>
