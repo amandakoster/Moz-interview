@@ -9,7 +9,6 @@ class Data extends React.Component {
     this.state = {
       data: [],
       order: '',
-      orderBy: '',
       offset: '',
       formattedData:[],
     };
@@ -17,6 +16,7 @@ class Data extends React.Component {
     this.rawData;
     this.fetchData = this.fetchData.bind(this);
     this.sortJobtitle = this.sortJobtitle.bind(this);
+    this.sortWages = this.sortWages.bind(this);
   }
 
   componentWillMount(){
@@ -34,13 +34,12 @@ class Data extends React.Component {
       .then(res => {
         this.rawData = res.body;
       });
-
   }
 
   formatData(arr){
     return arr.map(data => {
       return {
-        jobtitle:data.jobtitle ? data.jobtitle : 'no data',
+        jobtitle: data.jobtitle ? data.jobtitle : 'no data',
         female_avg_hrly_rate: data.female_avg_hrly_rate  ? data.female_avg_hrly_rate  : 'no data',
         male_avg_hrly_rate: data.male_avg_hrly_rate ?  data.male_avg_hrly_rate  : 'no data',
       };
@@ -52,9 +51,6 @@ class Data extends React.Component {
     return arr.sort(function(a, b) {
       var A = a.jobtitle;
       var B = b.jobtitle;
-      //var numA = Number(a.jobtitle);
-      //var isNumber = isNaN(numA);
-
       if (order == 'ASC') {
         if (A < B) return -1;
         if (A > B) return 1;
@@ -65,15 +61,34 @@ class Data extends React.Component {
       return 0;
     });
   }
-  // this.setState({searchText: e.target.value});
+
+  numberSort(arr, column) {
+    var order = this.state.order;
+    return arr.sort(function(a, b) {
+      var numA = (isNaN(Number(a[column]))) ? 0:Number(a[column]);
+      var numB = (isNaN(Number(b[column]))) ? 0:Number(b[column]);
+      if (order == 'ASC') {
+        if(numA < numB) return -1;
+        if(numA > numB) return 1;
+      } else {
+        if(numA < numB) return 1;
+        if(numA > numB)return -1;
+      }
+      return 0;
+    });
+  }
 
   sortJobtitle(e){
-    console.log(e, 'E');
     if (this.state.order != 'ASC') this.setState({order: 'ASC'});
     else this.setState({order: 'DESC'});
     this.setState({orderBy: e.target.className});
-    console.log(e.target.className);
     this.setState({formattedData: this.letterSort(this.state.formattedData)});
+  }
+
+  sortWages(e){
+    if (this.state.order != 'ASC') this.setState({order: 'ASC'});
+    else this.setState({order: 'DESC'});
+    this.setState({formattedData: this.numberSort(this.state.formattedData, e.target.className)});
   }
 
   render(){
@@ -84,8 +99,8 @@ class Data extends React.Component {
           <tbody>
             <tr>
               <th className="jobtitle" onClick={this.sortJobtitle}> Job Title </th>
-              <th className="woman" onClick={this.sortJobtitle}> Womens Wages </th>
-              <th className="man" onClick={this.sortJobtitle}> Mens Wages </th>
+              <th className="female_avg_hrly_rate" onClick={this.sortWages}> Womens Wages </th>
+              <th className="male_avg_hrly_rate" onClick={this.sortWages}> Mens Wages </th>
 
             </tr>
             {this.state.formattedData.map((data, i) => {
