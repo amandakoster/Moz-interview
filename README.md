@@ -15,7 +15,7 @@ More information:
 #### 1. How to run this project:
 Dependencies: You will find the dependencies listed in the package.json file. Use yarn to install these packages and type 'yarn install' in terminal and the packages will install.  
 
-Run the app: type 'yarn watch' in terminal and that will launch 'webpack-dev-server --inline --hot' serve the app in localhost:8080.
+Run the app: type 'yarn watch' in terminal and that will launch 'webpack-dev-server --inline --hot' serve the app at http://localhost:8080/.
 
 #### 2. Sortable data:
 I have created a sortable table using the API data. The table shows 5 sortable columns for:
