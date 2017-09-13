@@ -11,10 +11,11 @@ class Data extends React.Component {
       order: '',
       offset: '',
       formattedData:[],
+      wageDifference: '',
+      percent: '',
     };
 
     this.rawData;
-    this.fetchData = this.fetchData.bind(this);
     this.sortJobtitle = this.sortJobtitle.bind(this);
     this.sortWages = this.sortWages.bind(this);
   }
@@ -43,11 +44,13 @@ class Data extends React.Component {
         jobtitle: data.jobtitle ? data.jobtitle : 'no data',
         female_avg_hrly_rate: data.female_avg_hrly_rate  ? data.female_avg_hrly_rate  : 'no data',
         male_avg_hrly_rate: data.male_avg_hrly_rate ?  data.male_avg_hrly_rate  : 'no data',
+        ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage: data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage ? data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage : 'no data',
+        wageGap: data.male_avg_hrly_rate - data.female_avg_hrly_rate,
       };
     });
   }
 
-  letterSort(arr) {
+  jobtitle(arr) {
     var order = this.state.order;
     return arr.sort(function(a, b) {
       var A = a.jobtitle;
@@ -63,11 +66,11 @@ class Data extends React.Component {
     });
   }
 
-  numberSort(arr, column) {
+  wage(arr, column) {
     var order = this.state.order;
     return arr.sort(function(a, b) {
-      var numA = (isNaN(Number(a[column]))) ? 0:Number(a[column]);
-      var numB = (isNaN(Number(b[column]))) ? 0:Number(b[column]);
+      var numA = (isNaN(Number(a[column]))) ? 0 : Number(a[column]);
+      var numB = (isNaN(Number(b[column]))) ? 0 : Number(b[column]);
       if (order == 'ASC') {
         if(numA < numB) return -1;
         if(numA > numB) return 1;
@@ -83,26 +86,37 @@ class Data extends React.Component {
     if (this.state.order != 'ASC') this.setState({order: 'ASC'});
     else this.setState({order: 'DESC'});
     this.setState({orderBy: e.target.className});
-    this.setState({formattedData: this.letterSort(this.state.formattedData)});
+    this.setState({formattedData: this.jobtitle(this.state.formattedData)});
   }
+
 
   sortWages(e){
     if (this.state.order != 'ASC') this.setState({order: 'ASC'});
     else this.setState({order: 'DESC'});
-    this.setState({formattedData: this.numberSort(this.state.formattedData, e.target.className)});
+    this.setState({formattedData: this.wage(this.state.formattedData, e.target.className)});
+  }
+
+  wageDifference(gap){
+    let difference =
+    this.state.female_avg_hrly_rate - this.male_avg_hrly_rate || this.state.male_avg_hrly_rate - this.state.female_avg_hrly_rate;
+    if (this.state.female_avg_hrly_rate > this.state.male_avg_hrly_rate);
+    if (this.state.female_avg_hrly_rate < this.state.male_avg_hrly_rate);
+    else 0;
+    return difference;
   }
 
   render(){
     return(
       <div>
-        <h1>Seattle wages by gender</h1>
+        <h1>Seattle Wages By Gender</h1>
         <table>
           <tbody>
             <tr>
               <th className="jobtitle" onClick={this.sortJobtitle}> Job Title </th>
               <th className="female_avg_hrly_rate" onClick={this.sortWages}> Womens Wages </th>
               <th className="male_avg_hrly_rate" onClick={this.sortWages}> Mens Wages </th>
-
+              <th className="ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage" onClick={this.sortWages}> Wage Gap: $ Difference </th>
+              <th className="ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage" onClick={this.sortWages}> Wage Gap: % Percentage </th>
             </tr>
             {this.state.formattedData.map((data, i) => {
               return (
@@ -110,6 +124,9 @@ class Data extends React.Component {
                   <td>{data.jobtitle}</td>
                   <td>{data.female_avg_hrly_rate}</td>
                   <td>{data.male_avg_hrly_rate}</td>
+                  <td>{Number(data.wageGap).toFixed(2)}</td>
+                  <td>{(data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage *
+                  100).toFixed(2)}</td>
                 </tr>
               );
             })}
@@ -120,6 +137,5 @@ class Data extends React.Component {
     );
   }
 }
-
 
 export default Data;
