@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import superagent from 'superagent';
-import '../_main.scss';
+import './_main.scss';
 
 class Data extends React.Component {
   constructor(props) {
@@ -33,7 +33,6 @@ class Data extends React.Component {
         `https://data.seattle.gov/resource/5m8y-83zb.json?$order=jobtitle%20ASC`
       )
       .then(res => {
-        // research this
         this.rawData = res.body;
       });
   }
@@ -88,7 +87,6 @@ class Data extends React.Component {
     this.setState({orderBy: e.target.className});
     this.setState({formattedData: this.jobtitle(this.state.formattedData)});
   }
-
 
   sortWages(e){
     if (this.state.order != 'ASC') this.setState({order: 'ASC'});
