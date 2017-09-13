@@ -1,3 +1,4 @@
+## SODA API: Seattle Wages by Gender
 ### Summary
 This project consumes a public API and renders specific data in a sortable. The app is responsive for web and mobile.
 
