@@ -24,8 +24,3 @@ I have created a sortable table using the API data. The table shows 5 sortable c
 * Average male wage
 * Wage Gap: $ Difference
 * Wage Gap: % Percentage
-
-#### 3. Where I got stuck:
-Incomplete: filtering, correctly sorting Wage Gap: $ Difference, fixing NaN in Wage Gap: $ Difference/Wage Gap: % Percentage and pagination.
-
-I chose to build the table 'from scratch' using React. I'd like to complete the on my own and use a library from the start such as 'react-table', 'react-bootstrap-table' or 'Victory': http://victory.formidable.com as it became unnecessarily time-consuming to figure out how to borrow specific features (ex., pagination, sort) from a library for a table built from scratch in React.
