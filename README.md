@@ -13,7 +13,7 @@ More information:
 
 ### Detailed Project Information:
 #### 1. How to run this project:
-Dependencies: You will find the dependencies listed in the package.json file. Use yarn to install these packages and type 'yarn install' in terminal and the packages will install.  
+Dependencies: You will find the dependencies listed in the package.json file. Use yarn to install these packages, type 'yarn install' in terminal and the packages will install.  
 
 Run the app: type 'yarn watch' in terminal and that will launch 'webpack-dev-server --inline --hot' serve the app at http://localhost:8080/.
 
