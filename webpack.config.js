@@ -7,14 +7,14 @@ const ExtractPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'eval',
-  entry: `${__dirname}/src/main.js`,
+  entry: `${__dirname}/public/main.js`,
   output: {
     filename: 'bundle-[hash].js',
     path: `${__dirname}/build`,
     publicPath: '/',
   },
   plugins: [
-    new HTMLPlugin({template: `${__dirname}/src/index.html` }),
+    new HTMLPlugin({template: `${__dirname}/public/index.html` }),
     new ExtractPlugin('bundle-[hash].css'),
   ],
   module: {
