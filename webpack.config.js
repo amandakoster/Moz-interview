@@ -1,6 +1,7 @@
 'use strict';
 
 require('dotenv').config();
+var firebase = require('firebase/app');
 const HTMLPlugin = require('html-webpack-plugin');
 const ExtractPlugin = require('extract-text-webpack-plugin');
 
