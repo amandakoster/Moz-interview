@@ -1,26 +1,27 @@
 'use strict';
 
-require('dotenv').config();
-var firebase = require('firebase/app');
 const HTMLPlugin = require('html-webpack-plugin');
 const ExtractPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  devtool: 'eval',
-  entry: `${__dirname}/public/main.js`,
+  devtool: 'cheap-eval-source-map',
+  devServer: {
+    historyApiFallback: true,
+  },
+  entry: `${__dirname}/src/main.js`,
   output: {
-    filename: 'bundle-[hash].js',
-    path: `${__dirname}/build`,
     publicPath: '/',
+    path: `${__dirname}/build`,
+    filename: 'bundle-[hash].js',
   },
   plugins: [
-    new HTMLPlugin({template: `${__dirname}/public/index.html` }),
     new ExtractPlugin('bundle-[hash].css'),
+    new HTMLPlugin({template: `${__dirname}/src/index.html`}),
   ],
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test:  /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
