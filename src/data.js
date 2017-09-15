@@ -38,18 +38,23 @@ class Data extends React.Component {
   }
 
   formatData(arr){
+    console.log(this.data, 'this.data');
     return arr.map(data => {
       return {
         jobtitle: data.jobtitle ? data.jobtitle : 'no data',
         female_avg_hrly_rate: data.female_avg_hrly_rate  ? data.female_avg_hrly_rate  : 'no data',
         male_avg_hrly_rate: data.male_avg_hrly_rate ?  data.male_avg_hrly_rate  : 'no data',
-        ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage: data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage ? data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage : 'no data',
-        wageGap: data.male_avg_hrly_rate - data.female_avg_hrly_rate,
+
+        ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage: data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage ? Number((data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage *
+       100)).toFixed(2) : 'no data',
+
+        amountGap: (data.male_avg_hrly_rate - data.female_avg_hrly_rate) ? Number((data.male_avg_hrly_rate - data.female_avg_hrly_rate)).toFixed(2) : 'no data',
       };
     });
   }
 
   jobtitle(arr) {
+
     var order = this.state.order;
     return arr.sort(function(a, b) {
       var A = a.jobtitle;
@@ -122,9 +127,8 @@ class Data extends React.Component {
                   <td>{data.jobtitle}</td>
                   <td>{data.female_avg_hrly_rate}</td>
                   <td>{data.male_avg_hrly_rate}</td>
-                  <td>{Number(data.wageGap).toFixed(2)}</td>
-                  <td>{(data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage *
-                  100).toFixed(2)}</td>
+                  <td>{data.amountGap}</td>
+                  <td>{data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage}</td>
                 </tr>
               );
             })}
