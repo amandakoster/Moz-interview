@@ -46,7 +46,7 @@ class Data extends React.Component {
         male_avg_hrly_rate: data.male_avg_hrly_rate ?  data.male_avg_hrly_rate  : 'no data',
 
         ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage: data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage ? Number((data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage *
-       100)).toFixed(2) : 'no data',
+        100)).toFixed(2) : 'no data',
 
         amountGap: (data.male_avg_hrly_rate - data.female_avg_hrly_rate) ? Number((data.male_avg_hrly_rate - data.female_avg_hrly_rate)).toFixed(2) : 'no data',
       };
