@@ -11,7 +11,6 @@ class Data extends React.Component {
       order: '',
       offset: '',
       formattedData:[],
-      wageDifference: '',
       percent: '',
     };
 
@@ -38,16 +37,14 @@ class Data extends React.Component {
   }
 
   formatData(arr){
-    console.log(this.data, 'this.data');
     return arr.map(data => {
       return {
         jobtitle: data.jobtitle ? data.jobtitle : 'no data',
         female_avg_hrly_rate: data.female_avg_hrly_rate  ? data.female_avg_hrly_rate  : 'no data',
         male_avg_hrly_rate: data.male_avg_hrly_rate ?  data.male_avg_hrly_rate  : 'no data',
-
         ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage: data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage ? Number((data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage *
         100)).toFixed(2) : 'no data',
-
+        wageDifference: Math.abs(data.female_avg_hrly_rate - data.male_avg_hrly_rate) > 0.5,
         amountGap:(data.male_avg_hrly_rate - data.female_avg_hrly_rate) ? Number((data.male_avg_hrly_rate - data.female_avg_hrly_rate)).toFixed(2) : 'no data',
       };
     });
@@ -98,23 +95,21 @@ class Data extends React.Component {
     this.setState({formattedData: this.wage(this.state.formattedData, e.target.className)});
   }
 
-
-  wageDifference(gap){
-    let difference =
-    this.state.female_avg_hrly_rate - this.male_avg_hrly_rate || this.state.male_avg_hrly_rate - this.state.female_avg_hrly_rate;
-
-    if (this.state.female_avg_hrly_rate > this.state.male_avg_hrly_rate);
-    if (this.state.female_avg_hrly_rate < this.state.male_avg_hrly_rate);
-    else 0;
-    return difference;
+  filterWages(e){
+    var wageDifference = this.state.wageDifference;
+    wageDifference = (Math.abs(this.state.female_avg_hrly_rate - this.state.male_avg_hrly_rate));
+    this.state.wageDifference > .05 ? this.state.wageDifference > .05 :
+      this.setState({formattedData: this.filter((this.state.female_avg_hrly_rate - this.state.male_avg_hrly_rate) > 0.5)});
   }
-
-
 
   render(){
     return(
       <div>
         <h1>Seattle Wages By Gender</h1>
+        <button className="filter-wages"
+          onClick={this.filterWages}> Filter Wages
+        </button>
+
         <table>
           <tbody>
             <tr>
