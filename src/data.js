@@ -48,13 +48,12 @@ class Data extends React.Component {
         ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage: data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage ? Number((data.ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage *
         100)).toFixed(2) : 'no data',
 
-        amountGap: (data.male_avg_hrly_rate - data.female_avg_hrly_rate) ? Number((data.male_avg_hrly_rate - data.female_avg_hrly_rate)).toFixed(2) : 'no data',
+        amountGap:(data.male_avg_hrly_rate - data.female_avg_hrly_rate) ? Number((data.male_avg_hrly_rate - data.female_avg_hrly_rate)).toFixed(2) : 'no data',
       };
     });
   }
 
   jobtitle(arr) {
-
     var order = this.state.order;
     return arr.sort(function(a, b) {
       var A = a.jobtitle;
@@ -99,14 +98,18 @@ class Data extends React.Component {
     this.setState({formattedData: this.wage(this.state.formattedData, e.target.className)});
   }
 
+
   wageDifference(gap){
     let difference =
     this.state.female_avg_hrly_rate - this.male_avg_hrly_rate || this.state.male_avg_hrly_rate - this.state.female_avg_hrly_rate;
+
     if (this.state.female_avg_hrly_rate > this.state.male_avg_hrly_rate);
     if (this.state.female_avg_hrly_rate < this.state.male_avg_hrly_rate);
     else 0;
     return difference;
   }
+
+
 
   render(){
     return(
@@ -121,7 +124,7 @@ class Data extends React.Component {
               <th className="ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage" onClick={this.sortWages}> Wage Gap: $ Difference </th>
               <th className="ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage" onClick={this.sortWages}> Wage Gap: % Percentage </th>
             </tr>
-            {this.state.formattedData.map((data, i) => {
+            {this.state.formattedData.filter((data) => Math.abs(data.female_avg_hrly_rate - data.male_avg_hrly_rate) > 0.5).map((data, i) => {
               return (
                 <tr key={i}>
                   <td>{data.jobtitle}</td>
