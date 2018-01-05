@@ -1,7 +1,7 @@
 {
   "scripts": {
     "lint": "eslint.",
-    "watch": "webpack-dev-server --inline --hot",
+    "start": "webpack-dev-server --inline --hot",
     "build": "webpack"
   },
   "dependencies": {
@@ -10,6 +10,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "cool-ascii-faces": "1.3.4",
     "extract-text-webpack-plugin": "^3.0.2",
     "firebase": "^4.8.1",
     "html-webpack-plugin": "^2.30.1",
@@ -31,9 +32,9 @@
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9"
   },
-  "name": "moz-interview",
+  "name": "seattle-wages-gender",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.js",
   "license": "MIT",
   "description": "This project consumes a public API and renders specific data in a sortable. The app is responsive for web and mobile.",
   "repository": {
